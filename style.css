@@ -75,11 +75,3 @@ h4 {
     font-family: non;
   text-align: central;
 }
-<style>
-#image {
- transition: transform 0.2s;
-}
-#image:hover {
- transform: scale(1.5, 1.5);
-}
-</style>
