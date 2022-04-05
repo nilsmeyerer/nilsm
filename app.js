@@ -1,1 +1,1 @@
-const projectName = 'tribute-page';
+const projectName = 'portfolio';
