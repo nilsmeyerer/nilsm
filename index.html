@@ -1,129 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>title</title>
-  <link rel="stylesheet" type="text/css" href="./style.css"/>
-  <script src="app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Putting User Input into JS Objects</title>
+    <style>
+        .formBox{
+            padding: 0.5rem 2rem;
+        }
+    </style>
 </head>
-  
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-</style>
-<nav id="navbar" class="nav">
-  <ul class="nav-list">
-    <li>
-      <a href="#welcome-section">Über mich</a>
-    </li>
-    <li>
-      <a href="#projects">Projekte</a>
-    </li>
-    <li>
-      <a href="#contact">Kontakt</a>
-    </li>
-  </ul>
-</nav>
+<body>
+    <form>
+        <div class="formBox">
+            <label for="title">Movie</label>
+            <input type="text" id="title" placeholder="Title"/>
+        </div>
+        <div class="formBox">
+            <label for="yr">Year</label>
+            <input type="number" id="yr" placeholder="Year"/>
+        </div>
+        <div class="formBox">
+            <button id="btn">Click to Add</button>
+        </div>
+        <div id="msg">
+            <pre></pre>
+        </div>
+    </form>
+    <script>
+        let movies = [];
+        // example {id:1592304983049, title: 'Deadpool', year: 2015}
+        const addMovie = (ev)=>{
+            ev.preventDefault();  //to stop the form submitting
+            let movie = {
+                id: Date.now(),
+                title: document.getElementById('title').value,
+                year: document.getElementById('yr').value
+            }
+            movies.push(movie);
+            document.forms[0].reset(); // to clear the form for the next entries
+            //document.querySelector('form').reset();
 
-<section id="welcome-section" class="welcome-section">
-  <h1 class="textcolor">Nils Portfolio</h1>
-  <p>Dies ist ein Projekt meines Praktikums</p>
-</section>
+            //for display purposes only
+            console.warn('added' , {movies} );
+            let pre = document.querySelector('#msg pre');
+            pre.textContent = '\n' + JSON.stringify(movies, '\t', 2);
 
-<section id="projects" class="projects-section">
-    <br> </br>
-<h2 class="projects-section-header">Einige meiner Projekte:</h2> 
-  <div class="projects-grid">
-    <a
-      href="https://codepen.io/NilsMeyerer/pen/abEwVqR"
-      target="_blank"
-      class="project project-tile"
-    >
-      <p class="project-title">
-        <span class="code">&lt;</span>
-        Tribute Page
-        <span class="code">&#47;&gt;</span>
-      </p>
-    </a>
-    <a
-      href="https://codepen.io/NilsMeyerer/pen/QWaMjrd"
-      target="_blank"
-      class="project project-tile"
-    >
-      <p class="project-title">
-        <span class="code">&lt;</span>
-        Survey Form
-        <span class="code">&#47;&gt;</span>
-      </p>
-    </a>
-    <a
-      href="https://codepen.io/NilsMeyerer/pen/mdpMgOV"
-      target="_blank"
-      class="project project-tile"
-    >
-     <p class="project-title">
-        <span class="code">&lt;</span>
-        Product Landing Page
-        <span class="code">&#47;&gt;</span>
-      </p>
-    </a>
-    <a
-      href="https://codepen.io/NilsMeyerer/pen/mdpBjEz"
-      target="_blank"
-      class="project project-tile"
-    >
-       <p class="project-title">
-        <span class="code">&lt;</span>
-        Technical Documentation Page
-        <span class="code">&#47;&gt;</span>
-      </p>
-    </a>
-    <a
-      href="https://codepen.io/NilsMeyerer/pen/WNdZaez"
-      target="_blank"
-      class="project project-tile"
-    >
-      <p class="project-title">
-        <span class="code">&lt;</span>
-        Personal Portfolio
-        <span class="code">&#47;&gt;</span>
-      </p>
-
-  </div>
-
-  <a
-    href="https://codepen.io/NilsMeyerer/"
-    class="btn btn-show-all"
-    target="_blank"
-    >Alle Anzeigen<i class="fas fa-chevron-right"></i
-  ></a>
-      <br> </br>
-  <br> </br>
-  <br> </br>
-
-  <br> </br>
-<a href="https://www.freecodecamp.org/fccc14ef0ea-d854-40dd-b5c7-a99727eb2f04">Hier sind meine Zertifikate von freeCodeCamp.</a>
-</section>
-
-<section id="contact" class="contact-section">
-  <div class="contact-section-header">
-    <h2>Kontakt</h2>
-    <p>Kontaktiere mich bei folgenden Plattformen.</p>
-  </div>
-  <div class="contact-links">
-    <a
-      href="https://facebook.com/Nils_Meyerer"
-      target="_blank"
-      class="btn contact-details"
-      ><i class="fab fa-facebook-square"></i> Facebook</a
-    >
-    <a href="mailto:nils.meyerer@t-online.com" class="btn contact-details"
-      ><i class="fas fa-at"></i> E-Mail</a
-  </div>
-<footer>
-  <p>
-<hr style="width: 1000px;border-width: 2px;">
-  </p>
-  <p>
-    &copy; Erstellt von Nils Meyerer 2022
-  </p>
-</footer>
+            //saving to localStorage
+            localStorage.setItem('MyMovieList', JSON.stringify(movies) );
+        }
+        document.addEventListener('DOMContentLoaded', ()=>{
+            document.getElementById('btn').addEventListener('click', addMovie);
+        });
+    </script>
+</body>
+</html>
